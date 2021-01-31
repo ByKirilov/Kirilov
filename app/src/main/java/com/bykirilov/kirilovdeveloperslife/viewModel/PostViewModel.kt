@@ -64,7 +64,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application), C
                 Glide
                     .with(view.context)
                     .load(httpsUrl)
-                    .placeholder(R.drawable.car)
+                    .placeholder(R.drawable.loading)
                     .into(view)
             }
         }
