@@ -60,12 +60,13 @@
             android:onClick="@{() -> viewModel.getPreviousPost()}"
             android:enabled="@{viewModel.isPreviousEnabled}"
             android:text="@string/prev_button"
+            android:visibility="@{viewModel.isPreviousVisible() ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/next"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/description"
-            app:layout_constraintVertical_bias="0.918" />
+            app:layout_constraintVertical_bias="0.75" />
 
         <Button
             android:id="@+id/next"
@@ -74,12 +75,27 @@
             android:layout_marginBottom="16dp"
             android:onClick="@{() -> viewModel.getNextPost()}"
             android:text="@string/next_button"
+            android:visibility="@{viewModel.isNextVisible() ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/prev"
             app:layout_constraintTop_toBottomOf="@id/description"
-            app:layout_constraintVertical_bias="0.918" />
+            app:layout_constraintVertical_bias="0.75" />
+
+        <Button
+            android:id="@+id/refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/refresh_button"
+            android:visibility="@{viewModel.isRefreshVisible() ? View.VISIBLE : View.GONE}"
+            android:onClick="@{() -> viewModel.refresh()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/description"
+            app:layout_constraintVertical_bias="0.75"
+            />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

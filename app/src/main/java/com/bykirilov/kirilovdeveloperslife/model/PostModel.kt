@@ -1,13 +1,14 @@
 package com.bykirilov.kirilovdeveloperslife.model
 
 import android.os.Handler
+import com.bykirilov.kirilovdeveloperslife.managers.NetManager
 import com.bykirilov.kirilovdeveloperslife.network.APIService
 import io.reactivex.Observable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.lang.Exception
 
-class PostModel {
+class PostModel(val netManager: NetManager) {
 
     private val developerLifeRepository = DeveloperLifeRepository(APIService.create())
 
@@ -15,7 +16,14 @@ class PostModel {
 
     suspend fun getNextPost(index: Int) : Post {
         if (posts.size <= index) {
-            posts.add(developerLifeRepository.getRandomPost())
+            netManager.isConnectedToInternet?.let {
+                if (it) {
+                    posts.add(developerLifeRepository.getRandomPost())
+                }
+                else {
+                    return Post("Нет подключения к интернету", NetworkStatus.NO_INTERNET_CONNECTION.description)
+                }
+            }
         }
 
         return posts[index]
@@ -29,4 +37,6 @@ class PostModel {
             throw ArrayIndexOutOfBoundsException()
         }
     }
+
+    fun isConnectedToInternet() : Boolean? = netManager.isConnectedToInternet
 }
